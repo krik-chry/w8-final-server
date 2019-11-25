@@ -1,13 +1,16 @@
 const { Router } = require("express");
 const Ticket = require("./model");
 const auth = require("../auth/middleware");
-
+const User = require('../users/model')
 const router = new Router();
 
 router.get("/events/:eventId/tickets", async (req, res, next) => {
   const { eventId } = req.params;
   
-  const allTickets = await Ticket.findAll({ where: { eventId } });
+  const allTickets = await Ticket.findAll({ where: { eventId }, include: [{
+    model: User,
+    attributes: ['username']
+  }] });
   res.send(allTickets);
 });
 
