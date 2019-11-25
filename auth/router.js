@@ -22,23 +22,23 @@ router.post("/login", (req, res, next) => {
       .then(user => {
         if (!user) {
           res.status(400).send({
-            message: "You do not exist."
+            message: "This e-mail is invalid"
           });
 
         } else if (bcrypt.compareSync(password, user.password)) {          
           res.send({
             jwt: toJWT({ userId: user.id }),
-            // user
+            username: user.username 
           });
         } else {
           res.status(400).send({
-            message: "You got your password wrong."
+            message: "Your password is wrong."
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Something went fucky-uppy"
+          message: "Something went wrong"
         });
       });
   }

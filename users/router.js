@@ -4,10 +4,9 @@ const User = require("./model");
 
 const router = new Router();
 
-
 router.get("/users", async (req, res, next) => {
-  const allUsers = await User.findAll()
-  res.send(allUsers)
+  const allUsers = await User.findAll();
+  res.send(allUsers);
 });
 
 router.post("/user", async (req, res, next) => {
@@ -17,9 +16,8 @@ router.post("/user", async (req, res, next) => {
     password: bcrypt.hashSync(req.body.password, 10)
   };
   if (user.username && user.password && user.email) {
-    
-    const newUser = await User.create(user)
-    res.send(newUser)
+    const newUser = await User.create(user);
+    res.send(newUser);
   }
 });
 

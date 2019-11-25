@@ -9,7 +9,9 @@ function auth(req, res, next) {
       const data = toData(auth[1]);
       User.findByPk(data.userId)
         .then(user => {
-          if (!user) return next("User does not exist");
+          if (!user) {
+            return next("User does not exist");
+          }
           req.user = user;
           next();
         })

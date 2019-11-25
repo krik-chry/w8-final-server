@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Event = require("./model");
+const auth = require('../auth/middleware')
 
 const router = new Router();
 
@@ -8,13 +9,16 @@ router.get("/events", async (req, res, next) => {
   res.send(allEvents);
 });
 
-router.post("/event", async (req, res, next) => {
+router.post("/event", auth, async (req, res, next) => {
+  const userId  = req.user.id
+  console.log('user from event router: ', userId)
   const event = {
     name: req.body.name,
     description: req.body.description,
     logo: req.body.logo,
     startDate: req.body.startDate,
-    endDate: req.body.endDate
+    endDate: req.body.endDate,
+    userId: userId
   };
   const newEvent = await Event.create(event);
   res.send(newEvent);
