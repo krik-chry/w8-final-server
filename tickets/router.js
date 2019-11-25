@@ -3,18 +3,21 @@ const Ticket = require("./model");
 
 const router = new Router();
 
-router.get("/tickets", async (req, res, next) => {
-  const allTickets = await Ticket.findAll();
+router.get("/events/:eventId/tickets", async (req, res, next) => {
+  const { eventId } = req.params
+  const allTickets = await Ticket.findAll({where: { eventId }});
   res.send(allTickets);
 });
 
-router.post("/ticket", async (req, res, next) => {
+router.post("/events/:eventId/ticket", async (req, res, next) => {
+  const { eventId } = req.params
   const ticket = {
     description: req.body.description,
     picture: req.body.picture,
     price: req.body.price,
+    eventId: eventId
   };
-  const newTicket = await Event.create(ticket);
+  const newTicket = await Ticket.create(ticket);
   res.send(newTicket);
 });
 

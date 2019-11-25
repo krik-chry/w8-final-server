@@ -22,15 +22,15 @@ const Event = db.define(
     },
     logo: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     startDate: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: true
     },
     endDate: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: true
     }
   },
   {
