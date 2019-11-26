@@ -1,19 +1,25 @@
 const { Router } = require("express");
 const Comment = require("./model");
+const auth = require("../auth/middleware");
 
 const router = new Router();
 
-router.get("/:ticketId/comments", async (req, res, next) => {
-  const { ticketId } = req.params
-  const allComments = await Comment.findAll({where: {ticketId}});
+router.get("/comments/:ticketId", async (req, res, next) => {
+  const { ticketId } = req.params;
+  const allComments = await Comment.findAll({
+    where: { ticketId }
+  });
   res.send(allComments);
 });
 
-router.post("/tickets/:ticketId/comment", async (req, res, next) => {
-  const { ticketId } = req.params
+router.post("/comments/:ticketId", auth, async (req, res, next) => {
+  const userId = req.user.id;
+  const { ticketId } = req.params;
+
   const comment = {
     text: req.body.text,
-    ticketId: ticketId
+    ticketId: ticketId,
+    userId: userId
   };
   const newComment = await Comment.create(comment);
   res.send(newComment);
