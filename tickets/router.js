@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const Ticket = require("./model");
 const auth = require("../auth/middleware");
+const Ticket = require("./model");
 const User = require("../users/model");
 const Event = require('../events/model')
 const router = new Router();
@@ -36,7 +36,21 @@ router.post("/events/:eventId/ticket", auth, async (req, res, next) => {
     eventId: eventId
   };
   const newTicket = await Ticket.create(ticket);
-  res.send(newTicket);
+  
+  const inclTicket = await Ticket.findOne({
+    where: { id: newTicket.id },
+    include: [
+      {
+        model: User,
+        attributes: ["username"]
+      },
+      {
+        model: Event,
+        attributes: ['name']
+      }
+    ]
+  })
+  res.send(inclTicket);
 });
 
 module.exports = router;

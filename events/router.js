@@ -11,7 +11,7 @@ router.get("/events", async (req, res, next) => {
 
 router.post("/event", auth, async (req, res, next) => {
   const userId  = req.user.id
-  console.log('user from event router: ', userId)
+
   const event = {
     name: req.body.name,
     description: req.body.description,
@@ -20,6 +20,7 @@ router.post("/event", auth, async (req, res, next) => {
     endDate: req.body.endDate,
     userId: userId
   };
+  
   const newEvent = await Event.create(event);
   res.send(newEvent);
 });

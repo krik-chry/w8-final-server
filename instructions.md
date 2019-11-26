@@ -56,13 +56,13 @@ The calculated risk of a ticket depends on many factors. Make sure that the risk
 ​
 * As a customer I want to see max. 9 events on a page and be able to click 'next' to see more pages of events if there are more
 * As a customer I only want to see events that are not finished yet
-* As a customer I want to view a list of tickets when I click on an event
+<!-- * As a customer I want to view a list of tickets when I click on an event -->
 * As a customer I want to view ticket details when I click on a ticket in the ticket list
 * As a customer I want to see what the fraud-risk is for a specific ticket
-* As a customer I want to be able to login, or sign up if I don't have an account yet
-* As a logged in customer I want to add a ticket (for a specific event) that shows up on the event page with a title, picture, price and description
+<!-- * As a customer I want to be able to login, or sign up if I don't have an account yet -->
+<!-- * As a logged in customer I want to add a ticket (for a specific event) that shows up on the event page with a title, picture, price and description -->
 * As an author of the ticket I want to be able to edit a ticket's description, price and picture (other logged in customers cannot do this! only the user that created the ticket can edit it)
-* As a logged in customer I want to be able to create events with a name, picture (logo), date and description
+<!-- * As a logged in customer I want to be able to create events with a name, picture (logo), date and description -->
 * As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
 ​
 ## Tools and technology
