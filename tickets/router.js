@@ -2,7 +2,7 @@ const { Router } = require("express");
 const auth = require("../auth/middleware");
 const Ticket = require("./model");
 const User = require("../users/model");
-const Event = require('../events/model')
+const Event = require("../events/model");
 const router = new Router();
 
 router.get("/events/:eventId/tickets", async (req, res, next) => {
@@ -17,7 +17,7 @@ router.get("/events/:eventId/tickets", async (req, res, next) => {
       },
       {
         model: Event,
-        attributes: ['name']
+        attributes: ["name"]
       }
     ]
   });
@@ -36,7 +36,7 @@ router.post("/events/:eventId/ticket", auth, async (req, res, next) => {
     eventId: eventId
   };
   const newTicket = await Ticket.create(ticket);
-  
+
   const inclTicket = await Ticket.findOne({
     where: { id: newTicket.id },
     include: [
@@ -46,11 +46,30 @@ router.post("/events/:eventId/ticket", auth, async (req, res, next) => {
       },
       {
         model: Event,
-        attributes: ['name']
+        attributes: ["name"]
+      }
+    ]
+  });
+  res.send(inclTicket);
+});
+
+router.put("/edit/:ticketId", auth, async (req, res, next) => {
+  const { ticketId } = req.params;
+  const ticketToUpdate = await Ticket.findByPk(ticketId)
+  const updatedTicket = await ticketToUpdate.update(req.body)
+  const allUpdatedTickets = await Ticket.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["username"]
+      },
+      {
+        model: Event,
+        attributes: ["name"]
       }
     ]
   })
-  res.send(inclTicket);
+  res.send(allUpdatedTickets)
 });
 
 module.exports = router;

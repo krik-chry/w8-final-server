@@ -47,7 +47,7 @@ router.post("/comments/:ticketId", auth, async (req, res, next) => {
       }
     ]
   })
-  res.send(newComment);
+  res.send(inclComment);
 });
 
 module.exports = router;
