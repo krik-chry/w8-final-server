@@ -5,6 +5,22 @@ const User = require("../users/model");
 const Event = require("../events/model");
 const router = new Router();
 
+router.get("/ticketsList", async (req, res, next) => {
+  const fullTickets = await Ticket.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["username"]
+      },
+      {
+        model: Event,
+        attributes: ["name"]
+      }
+    ]
+  });
+  res.send(fullTickets);
+});
+
 router.get("/events/:eventId/tickets", async (req, res, next) => {
   const { eventId } = req.params;
 
