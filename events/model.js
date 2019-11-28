@@ -8,17 +8,11 @@ const Event = db.define(
   {
     name: {
       type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        min: 5
-      }
+      allowNull: false
     },
     description: {
       type: Sequelize.TEXT,
-      allowNull: false,
-      validate: {
-        min: 10
-      }
+      allowNull: false
     },
     logo: {
       type: Sequelize.STRING,
@@ -26,11 +20,11 @@ const Event = db.define(
     },
     startDate: {
       type: Sequelize.DATE,
-      allowNull: true
+      allowNull: false
     },
     endDate: {
       type: Sequelize.DATE,
-      allowNull: true
+      allowNull: false
     }
   },
   {
