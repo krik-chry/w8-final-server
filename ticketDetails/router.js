@@ -5,6 +5,22 @@ const User = require("../users/model");
 const Ticket = require("../tickets/model");
 const router = new Router();
 
+router.get("/commentsList", async (req, res, next) => {
+  const fullComments = await Comment.findAll({
+    include: [
+      {
+        model: Ticket,
+        attributes: ["id"]
+      },
+      {
+        model: User,
+        attributes: ["username"]
+      }
+    ]
+  });
+  res.send(fullComments);
+});
+
 router.get("/comments/:ticketId", async (req, res, next) => {
   const { ticketId } = req.params;
 
