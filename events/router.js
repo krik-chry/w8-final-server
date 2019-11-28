@@ -5,7 +5,9 @@ const auth = require('../auth/middleware')
 const router = new Router();
 
 router.get("/events", async (req, res, next) => {
-  const allEvents = await Event.findAll();
+  const allEvents = await Event.findAll({
+    order: [['id', 'DESC']]
+  });
   res.send(allEvents);
 });
 
