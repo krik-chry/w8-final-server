@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+
 const userRouter = require('./users/router')
 const eventRouter = require('./events/router')
 const ticketRouter = require('./tickets/router')

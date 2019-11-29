@@ -3,6 +3,7 @@ const Comment = require("./model");
 const auth = require("../auth/middleware");
 const User = require("../users/model");
 const Ticket = require("../tickets/model");
+
 const router = new Router();
 
 router.get("/commentsList", async (req, res, next) => {
@@ -49,7 +50,9 @@ router.post("/comments/:ticketId", auth, async (req, res, next) => {
     ticketId: ticketId,
     userId: userId
   };
+
   const newComment = await Comment.create(comment);
+  
   const inclComment = await Comment.findOne({
     where: { id: newComment.id },
     include: [

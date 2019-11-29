@@ -3,6 +3,7 @@ const auth = require("../auth/middleware");
 const Ticket = require("./model");
 const User = require("../users/model");
 const Event = require("../events/model");
+
 const router = new Router();
 
 router.get("/ticketsList", async (req, res, next) => {
@@ -51,6 +52,7 @@ router.post("/events/:eventId/ticket", auth, async (req, res, next) => {
     userId: userId,
     eventId: eventId
   };
+  
   const newTicket = await Ticket.create(ticket);
 
   const inclTicket = await Ticket.findOne({
@@ -71,8 +73,11 @@ router.post("/events/:eventId/ticket", auth, async (req, res, next) => {
 
 router.put("/edit/:ticketId", auth, async (req, res, next) => {
   const { ticketId } = req.params;
+  
   const ticketToUpdate = await Ticket.findByPk(ticketId)
+  
   const updatedTicket = await ticketToUpdate.update(req.body)
+  
   const allUpdatedTickets = await Ticket.findAll({
     include: [
       {
@@ -85,6 +90,7 @@ router.put("/edit/:ticketId", auth, async (req, res, next) => {
       }
     ]
   })
+
   res.send(allUpdatedTickets)
 });
 

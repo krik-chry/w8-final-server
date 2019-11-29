@@ -24,6 +24,7 @@ router.post("/event", auth, async (req, res, next) => {
   };
   
   const newEvent = await Event.create(event);
+  
   res.send(newEvent);
 });
 
